@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "note": "入口登记不表示已登录或已采集。公众号名称由用户提供，未确认唯一账号ID前不作身份认定。",
+  "loginEntrances": [
+    {
+      "name": "四川大学信息门户",
+      "url": "https://my.scu.edu.cn/portal/home",
+      "status": "link-only",
+      "collect": false
+    },
+    {
+      "name": "四川大学本科教务系统",
+      "url": "http://zhjw.scu.edu.cn/index",
+      "status": "link-only",
+      "collect": false
+    }
+  ],
+  "wechatAccounts": [
+    {
+      "name": "川大国关",
+      "status": "identity-and-access-pending"
+    },
+    {
+      "name": "四川大学校友总会",
+      "status": "official-reference-found-feed-pending",
+      "evidence": "https://www.scu.edu.cn/info/1182/28783.htm",
+      "verificationNote": "官网毕业手续指南明确提及该公众号；未取得唯一账号ID"
+    },
+    {
+      "name": "川大就业",
+      "status": "official-reference-found-feed-pending",
+      "evidence": "https://jy.scu.edu.cn/",
+      "verificationNote": "官网底部写作川大就业中心，与用户提供名称有差异，待确认"
+    },
+    {
+      "name": "川大哲学",
+      "status": "official-reference-found-feed-pending",
+      "evidence": "https://zxx.scu.edu.cn/info/1154/1855.htm",
+      "verificationNote": "官网2021年公众号矩阵明确列出，当前账号是否更名仍需确认",
+      "accountId": "zxxscu"
+    },
+    {
+      "name": "川大组工",
+      "status": "identity-and-access-pending"
+    },
+    {
+      "name": "川大道教与宗教研究所",
+      "status": "official-reference-found-feed-pending",
+      "evidence": "https://daoism.scu.edu.cn/info/1026/2501.htm",
+      "verificationNote": "已找到道教与宗教文化研究所官网，不等于公众号身份核验"
+    },
+    {
+      "name": "SCU思学",
+      "status": "official-reference-found-feed-pending",
+      "evidence": "https://xgb.scu.edu.cn/info/1034/3843.htm",
+      "verificationNote": "官网介绍明确提及公众号；未取得唯一账号ID"
+    },
+    {
+      "name": "四川大学e教务",
+      "status": "official-reference-found-feed-pending",
+      "evidence": "https://jwc.scu.edu.cn/info/1072/8566.htm",
+      "verificationNote": "教务处官网明确提及该公众号；未取得唯一账号ID"
+    },
+    {
+      "name": "四川大学学生会",
+      "status": "identity-and-access-pending"
+    },
+    {
+      "name": "四川大学校友联络协会",
+      "status": "official-reference-found-feed-pending",
+      "evidence": "https://sau.scu.edu.cn/info/1008/22205.htm",
+      "verificationNote": "社团官网核实组织存在，但公众号当前名称/ID未核实"
+    }
+  ],
+  "competitionPolicy": "采集时不按专业、兴趣、年级删掉竞赛。全部竞赛保留可检索；资格和相关性只用于展示排序。公开网页覆盖不等于全网或群内竞赛全覆盖。"
+}

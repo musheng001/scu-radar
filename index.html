@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="ink">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#111c23">
+  <meta name="description" content="聚合四川大学公开通知、竞赛、讲座和研究生信息的个人情报台。">
+  <title>川大雷达 · 案头</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='7' fill='%23111c23'/%3E%3Cpath d='M15 16h34v6H15zm0 13h34v6H15zm0 13h21v6H15z' fill='%23eeeae1'/%3E%3Crect x='41' y='42' width='8' height='8' fill='%239a3f36'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="radar-ui.css?v=7">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="rail" id="rail">
+    <div class="brand"><div class="brand-mark">川</div><div><strong>川大雷达</strong><small>INTELLIGENCE DESK</small></div></div>
+    <div class="section-label">案头分类</div>
+    <nav class="filters" id="filters" aria-label="信息分类"></nav>
+    <div class="section-label">来源范围</div>
+    <select class="rail-select" id="sourceSelect" aria-label="按学校或来源筛选"><option value="">全部来源</option></select>
+    <div class="rail-footer">
+      <button class="rail-action ai-progress-trigger" type="button" id="progressAssistant">✦ GPT 录入进展</button>
+      <button class="rail-action" type="button" id="account">◎ 账户与云同步</button>
+      <button class="rail-action" type="button" id="add">＋ 人工补录</button>
+      <button class="rail-action" type="button" id="export">↓ 导出个人数据</button>
+      <button class="rail-action" type="button" id="import">↑ 导入个人数据</button>
+      <input id="file" type="file" accept="application/json,.json" hidden>
+    </div>
+  </aside>
+
+  <section class="page">
+    <header class="topbar">
+      <button class="menu-button" id="menu" type="button" aria-label="打开导航">☰</button>
+      <div class="search-box"><input class="search" id="query" type="search" placeholder="检索标题、正文、来源……" aria-label="搜索全部公开信息"></div>
+      <div class="theme-switch" aria-label="页面风格">
+        <a href="?theme=ink" data-theme-choice="ink" title="风骨版">风骨</a>
+        <a href="?theme=night" data-theme-choice="night" title="夜航版">夜航</a>
+        <a href="?theme=minimal" data-theme-choice="minimal" title="清简版">清简</a>
+      </div>
+      <div class="sync"><strong id="syncState">读取数据中</strong><small id="syncTime">—</small></div>
+    </header>
+
+    <div class="content">
+      <section class="hero">
+        <div>
+          <div class="eyebrow"><span id="today"></span> · PERSONAL BRIEF</div>
+          <h1 id="headline">先核资格，再决定投入。</h1>
+          <p id="briefText">正在整理公开信息。</p>
+        </div>
+        <div class="hero-actions">
+          <button class="quiet-button ai-progress-trigger" type="button">✦ 录入进展</button>
+          <a class="quiet-link" href="secretary-brief.html" target="_blank" rel="noopener noreferrer">案头简报 ↗</a>
+          <button class="quiet-button" type="button" id="openChannels">全校渠道</button>
+          <button class="quiet-button" type="button" id="openSources">来源诊断</button>
+        </div>
+      </section>
+
+      <section class="metrics" id="stats" aria-label="数据概览"></section>
+
+      <div class="board">
+        <main>
+          <div class="feed-toolbar"><h2 id="feedTitle">案头优先</h2><span class="feed-count" id="count"></span><select class="sort" id="sort" aria-label="排序"><option value="priority">行动价值优先</option><option value="newest">最新发布</option><option value="deadline">截止时间优先</option></select></div>
+          <div class="cards" id="cards"></div>
+          <button class="load-more" id="more" type="button" hidden>展开更多</button>
+        </main>
+
+        <aside class="desk">
+          <section class="panel"><h2>优先核对</h2><div id="actionList"></div></section>
+          <section class="panel"><h2>来源健康</h2><div class="health-summary" id="healthSummary"></div><p class="panel-note">这里只显示总况；详细错误已经收入来源诊断。</p><button class="quiet-button" type="button" id="openSourcesSecondary">查看详情</button></section>
+          <section class="panel"><h2>常用入口</h2><div class="link-list">
+            <a href="https://my.scu.edu.cn/portal/home" target="_blank" rel="noopener noreferrer"><span>四川大学信息门户</span><span>↗</span></a>
+            <a href="http://zhjw.scu.edu.cn/index" target="_blank" rel="noopener noreferrer"><span>本科教务系统</span><span>↗</span></a>
+            <a href="https://sis.scu.edu.cn/" target="_blank" rel="noopener noreferrer"><span>国际关系学院</span><span>↗</span></a>
+            <a href="https://jwc.scu.edu.cn/" target="_blank" rel="noopener noreferrer"><span>本科教务处</span><span>↗</span></a>
+            <a href="secretary-brief.json" target="_blank" rel="noopener noreferrer"><span>机器版简报</span><span>↗</span></a>
+          </div></section>
+          <section class="panel"><h2>课程与课表</h2><div class="link-list">
+            <a href="http://zhjw.scu.edu.cn/index" target="_blank" rel="noopener noreferrer"><span>我的本学期课表</span><span>登录 ↗</span></a>
+            <a href="https://zhjwjs.scu.edu.cn/teacher/personalSenate/giveLessonInfo/thisSemesterClassSchedule/indexPublic" target="_blank" rel="noopener noreferrer"><span>全校本学期开课信息</span><span>查询 ↗</span></a>
+            <a href="https://cir.scu.edu.cn/cir/index.html" target="_blank" rel="noopener noreferrer"><span>空闲教室</span><span>查询 ↗</span></a>
+            <a href="https://jwc.scu.edu.cn/cdxl.htm" target="_blank" rel="noopener noreferrer"><span>川大校历</span><span>公开 ↗</span></a>
+            <a href="https://jwc.scu.edu.cn/info/1065/8056.htm" target="_blank" rel="noopener noreferrer"><span>本科教学作息时间</span><span>公开 ↗</span></a>
+          </div><p class="panel-note">个人课表只从本人登录后的教务系统读取，不保存账号密码。</p></section>
+        </aside>
+      </div>
+    </div>
+  </section>
+</div>
+
+<dialog id="sourceDialog">
+  <div class="dialog-head"><div><div class="eyebrow">SOURCE HEALTH</div><h2>来源诊断</h2></div><button type="button" id="closeSources" aria-label="关闭">×</button></div>
+  <p class="panel-note">采集失败不会覆盖上次成功快照。图片、附件和访问校验会明确保留为待核状态。</p>
+  <div class="source-list" id="sourceList"></div>
+</dialog>
+
+<dialog id="progressDialog" class="progress-dialog">
+  <div class="dialog-head"><div><div class="eyebrow">PROGRESS INBOX</div><h2>用 GPT 整理进展</h2></div><button type="button" id="closeProgress" aria-label="关闭">×</button></div>
+  <p class="panel-note">像发消息一样写。GPT 只负责整理；预览确认后才会写入本地进展记录和案头简报。</p>
+  <form id="progressForm" class="progress-form">
+    <label class="wide">今天做了什么，接下来要做什么
+      <textarea id="progressInput" name="progress" maxlength="6000" required placeholder="例如：英语慕课前两单元做完了。新中国史我们定了婚姻法这个题，下周三前把资料发给组长。政治学原理那篇论文还没读。"></textarea>
+    </label>
+    <div class="progress-examples wide">
+      <button type="button" data-progress-example="英语慕课和学习通本周任务都做完了。">已完成课程任务</button>
+      <button type="button" data-progress-example="新中国史已经分组，我负责查资料，下周三前发给组长。">记录小组任务</button>
+      <button type="button" data-progress-example="政治学原理文章读了一半，卡在双重差分方法，周末继续。">记录学习进度</button>
+    </div>
+    <div class="progress-state wide" id="progressState">正在检查本机 GPT 服务……</div>
+    <div class="form-actions"><button class="secondary" type="button" id="clearProgress">清空</button><button class="primary" type="submit" id="analyzeProgress">GPT 整理</button></div>
+  </form>
+  <section id="progressPreview" class="progress-preview" hidden>
+    <div class="preview-head"><div><div class="eyebrow">REVIEW BEFORE SAVE</div><h3 id="progressSummary"></h3></div><button class="primary" type="button" id="saveProgress">确认写入简报</button></div>
+    <div id="progressPreviewBody"></div>
+  </section>
+  <section class="progress-history"><h3>最近记录</h3><div id="progressHistory"><p class="panel-note">尚未读取。</p></div></section>
+</dialog>
+
+<dialog id="channelDialog" class="wide-dialog">
+  <div class="dialog-head"><div><div class="eyebrow">SCU DIRECTORY</div><h2>全校公开渠道</h2></div><button type="button" id="closeChannels" aria-label="关闭">×</button></div>
+  <p class="panel-note" id="channelMeta">正在读取四川大学官方机构目录。</p>
+  <input class="dialog-search" id="channelQuery" type="search" placeholder="搜索学院、部门、课程、图书馆……" aria-label="搜索全校渠道">
+  <div class="channel-groups" id="channelList"></div>
+</dialog>
+
+<dialog id="accountDialog">
+  <div class="dialog-head"><div><div class="eyebrow">PRIVATE CLOUD</div><h2>账户与云同步</h2></div><button type="button" id="closeAccount" aria-label="关闭">×</button></div>
+  <p class="cloud-state" id="cloudState">正在检查云端配置……</p>
+  <form id="profileForm">
+    <label class="wide">显示名<input name="display_name" maxlength="60" placeholder="你的称呼"></label>
+    <label class="wide">目标院校<input name="target_schools" maxlength="300" placeholder="北京大学国际关系学院，中国人民大学国际关系学院"></label>
+    <label class="wide">关注方向<input name="interests" maxlength="300" placeholder="国际政治经济，定量方法，数据分析"></label>
+    <label class="wide">个人备注<textarea name="notes" maxlength="2000" placeholder="只对当前账户可见"></textarea></label>
+    <div class="form-actions"><button class="primary" type="submit">保存个人资料</button></div>
+  </form>
+  <form id="emailForm" class="email-form">
+    <label class="wide">绑定邮箱<input name="email" type="email" autocomplete="email" required placeholder="name@example.com"></label>
+    <p class="panel-note wide">绑定后可跨设备恢复收藏与补录；邮件由 Supabase Auth 发送。</p>
+    <div class="form-actions"><button class="secondary" type="submit">发送验证邮件</button></div>
+  </form>
+</dialog>
+
+<dialog id="entryDialog">
+  <div class="dialog-head"><h2>人工补录线索</h2><button type="button" id="cancel" aria-label="关闭">×</button></div>
+  <form id="entry">
+    <label class="wide">标题<input name="title" maxlength="160" required></label>
+    <label>类别<select name="category"><option>竞赛</option><option>讲座会议</option><option>校园活动</option><option>教务规则</option><option>交流项目</option><option>招募实践</option><option>学院动态</option></select></label>
+    <label>主办方<input name="organizer" maxlength="80" required></label>
+    <label>截止日期<input name="deadline" type="date"></label>
+    <label>官方来源<input name="url" type="url" placeholder="https://..." required></label>
+    <label class="wide">说明<textarea name="summary" maxlength="600" placeholder="对象、资格、报名方式或你为什么关注"></textarea></label>
+    <div class="form-actions"><button class="secondary" type="button" id="cancelSecondary">取消</button><button class="primary" type="submit">存入案头</button></div>
+  </form>
+</dialog>
+
+<script src="supabase-config.js?v=1"></script>
+<script src="radar-cloud.js?v=1"></script>
+<script src="scu-channels.js?v=2"></script>
+<script src="radar-data.js?v=6"></script>
+<script src="radar-app.js?v=8"></script>
+<script src="progress-assistant.js?v=1"></script>
+</body>
+</html>
